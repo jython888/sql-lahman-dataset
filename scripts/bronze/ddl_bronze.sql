@@ -79,7 +79,7 @@ IF OBJECT_ID ('bronze.lahman_fielding' , 'U') IS NOT NULL
 GO
   
 CREATE TABLE bronze.lahman_fielding (
-	playerID, NVARCHAR(100),
+	playerID NVARCHAR(100),
 	yearID INT,
 	stint INT,
 	teamID NVARCHAR(100),
