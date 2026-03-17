@@ -198,5 +198,21 @@ CREATE TABLE silver.lahman_teams (
 );
 
 
+IF OBJECT_ID('silver.lahman_managers', 'U') IS NOT NULL
+	DROP TABLE silver.lahman_managers;
+
+CREATE TABLE silver.lahman_managers(
+	playerID NVARCHAR(50),
+	yearID INT,
+	teamID NVARCHAR(50),
+	lgID NVARCHAR(50),
+	stint INT,
+	G INT,
+	W INT,
+	L INT,
+	WinPct DECIMAL(5,3),
+	[Rank] INT,
+	plyrMgr NVARCHAR(50)
+); 
 
 
