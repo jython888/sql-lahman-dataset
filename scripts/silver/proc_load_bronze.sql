@@ -278,8 +278,11 @@ SET @end_time = GETDATE();
 	PRINT '>> Load Duration: ' + CAST(DATEDIFF(SECOND, @start_time, @end_time) AS NVARCHAR) + ' seconds';
 	PRINT '>> ---------';
 
-
-
+-- Loading silver.lahman_people
+	SET @start_time = GETDATE();
+	PRINT '>> Truncating Table: silver.lahman_people';
+	TRUNCATE TABLE silver.lahman_people;
+	PRINT '>> Inserting Data Into: silver.lahman_people';
 INSERT INTO silver.lahman_people (
 	playerID,
 	birthDate,
@@ -335,6 +338,9 @@ SELECT
 	TRIM(bbrefID) AS bbrefID,
 	TRIM(retroID) AS retroID
 FROM bronze.lahman_people
+SET @end_time = GETDATE();
+	PRINT '>> Load Duration: ' + CAST(DATEDIFF(SECOND, @start_time, @end_time) AS NVARCHAR) + ' seconds';
+	PRINT '>> ---------';
 
 
 INSERT INTO silver.lahman_teams (
