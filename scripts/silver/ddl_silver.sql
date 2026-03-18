@@ -215,4 +215,14 @@ CREATE TABLE silver.lahman_managers(
 	plyrMgr NVARCHAR(50)
 ); 
 
+IF OBJECT_ID('silver.lahman_salaries', 'U') IS NOT NULL
+	DROP TABLE silver.lahman_salaries;
 
+CREATE TABLE silver.lahman_salaries (
+	yearID INT,
+	teamID NVARCHAR(50),
+	lgID NVARCHAR(50),
+	playerID NVARCHAR(50),
+	salary BIGINT,
+	salary_m DECIMAL(10,2)
+);
