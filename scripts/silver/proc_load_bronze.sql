@@ -499,7 +499,24 @@ SELECT
 	ISNULL([Rank], 0) AS [Rank],
 	CASE WHEN TRIM(UPPER(plyrMgr)) = 'Y' THEN 1 ELSE 0 END AS plyrMgr
 FROM bronze.lahman_managers
-*/
+
+
+INSERT INTO silver.lahman_salaries (
+	yearID,
+	teamID,
+	lgId,
+	playerID,
+	salary,
+	salary_m)
+
+SELECT
+	yearID,
+	TRIM(teamID) AS teamID,
+	TRIM(lgID) AS lgID,
+	TRIM(playerID) AS playerID,
+	CAST(ISNULL(salary,0) AS BIGINT) AS salary,
+	CAST(ISNULL(salary, 0) / 1000000.0 AS DECIMAL(10,2)) AS salary_m
+FROM bronze.lahman_salaries
 
 
 
