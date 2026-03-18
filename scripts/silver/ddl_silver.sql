@@ -1,7 +1,18 @@
+/*
+==========================================================================
+DDL Script: Create Silver Tables
+==========================================================================
+Script Purpose:
+  This script creates tables in the 'silver' schema, dropping existing tables
+  if they already exist.
+  Run this script to re-define the DDL structure of 'bronze' tables.
+==========================================================================
+*/
 
 IF OBJECT_ID('silver.lahman_batting', 'U') IS NOT NULL
 	DROP TABLE silver.lahman_batting;
-
+GO
+	
 CREATE TABLE silver.lahman_batting (
 	playerID NVARCHAR(50),
 	yearID INT,
@@ -32,10 +43,12 @@ CREATE TABLE silver.lahman_batting (
 	SH INT,
 	SF INT
 );
-
+Go
+	
 IF OBJECT_ID('silver.lahman_pitching', 'U') IS NOT NULL
 	DROP TABLE silver.lahman_pitching;
-
+GO
+	
 CREATE TABLE silver.lahman_pitching (
 	playerID NVARCHAR(50),
 	yearID INT,
@@ -76,10 +89,12 @@ CREATE TABLE silver.lahman_pitching (
 	SF INT,
 	GIDP INT
 );
-
+GO
+	
 IF OBJECT_ID('silver.lahman_fielding', 'U') IS NOT NULL
 	DROP TABLE silver.lahman_fielding;
-
+GO
+	
 CREATE TABLE silver.lahman_fielding (
 	playerID NVARCHAR(50),
 	yearID INT,
@@ -104,10 +119,12 @@ CREATE TABLE silver.lahman_fielding (
 	[RF/9] DECIMAL(10,2),
 	DRS_Lite DECIMAL(10,2)
 );
-
+GO
+	
 IF OBJECT_ID('silver.lahman_people', 'U') IS NOT NULL
 	DROP TABLE silver.lahman_people;
-
+GO
+	
 CREATE TABLE silver.lahman_people ( 
 	playerID NVARCHAR(50),
 	birthDate DATE,
@@ -133,10 +150,12 @@ CREATE TABLE silver.lahman_people (
 	bbrefID NVARCHAR(50),
 	retroID NVARCHAR(50)
 );
-
+GO
+	
 IF OBJECT_ID('silver.lahman_teams', 'U') IS NOT NULL
 	DROP TABLE silver.lahman_teams;
-
+GO
+	
 CREATE TABLE silver.lahman_teams (
 	yearID INT,
 	lgID NVARCHAR(50),
@@ -196,11 +215,12 @@ CREATE TABLE silver.lahman_teams (
 	teamIDlahman45 NVARCHAR(50),
 	teamIDretro NVARCHAR(50)
 );
-
+Go
 
 IF OBJECT_ID('silver.lahman_managers', 'U') IS NOT NULL
 	DROP TABLE silver.lahman_managers;
-
+GO
+	
 CREATE TABLE silver.lahman_managers(
 	playerID NVARCHAR(50),
 	yearID INT,
@@ -214,10 +234,12 @@ CREATE TABLE silver.lahman_managers(
 	[Rank] INT,
 	plyrMgr NVARCHAR(50)
 ); 
-
+GO
+	
 IF OBJECT_ID('silver.lahman_salaries', 'U') IS NOT NULL
 	DROP TABLE silver.lahman_salaries;
-
+GO
+	
 CREATE TABLE silver.lahman_salaries (
 	yearID INT,
 	teamID NVARCHAR(50),
