@@ -1,8 +1,37 @@
+/*
+=============================================================================
+Stored Procedure: Load Silver Layer (Bronze -> Silver)
+=============================================================================
+Script Purpose:
+    This stored procedure performs the ETL (Extract, Transform, Load) process to
+    populate the 'silver' schema tables from the 'bronze' schema.
+  Actions Performed:
+    - Truncates silver tables.
+    - Inserts transformed and cleansed data from bronze into silver tables.
 
+Parameters:
+    None.
+    This stored procedure does not accept any parameters or return any values. 
 
+Usage Example:
+    EXEC silver.load_silver;
+=============================================================================
+*/
 
+CREATE OR ALTER PROCEDURE silver.load_silver AS 
+BEGIN
+	DECLARE @start_time DATETIME, @end_time DATETIME, @batch_start_time DATETIME, @batch_end_time DATETIME;
+	BEGIN TRY
+		SET @batch_start_time = GETDATE();
+	PRINT '==============================='
+	PRINT 'Loading Silver Layer'
+	PRINT '==============================='
 
-
+-- Loading silver.lahman_batting
+	SET @start_time = GETDATE();
+	PRINT '>> Truncating Table: silver.lahman_batting';
+	TRUNCATE TABLE silver.lahman_batting;
+	PRINT '>> Inserting Data Into: silver.lahman_batting;
 INSERT INTO silver.lahman_batting (
 	playerID,
 	yearID,
@@ -81,7 +110,15 @@ SELECT
 	CAST(ISNULL(SH, 0) AS INT) AS SH,
 	CAST(ISNULL(SF, 0) AS INT) AS SF
 FROM bronze.lahman_batting
+SET @end_time = GETDATE();
+	PRINT '>> Load Duration: ' + CAST(DATEDIFF(SECOND, @start_time, @end_time) AS NVARCHAR) + ' seconds';
+	PRINT '>> ---------';
 
+-- Loading silver.lahman_pitching
+	SET @start_time = GETDATE();
+	PRINT '>> Truncating Table: silver.lahman_pitching';
+	TRUNCATE TABLE silver.lahman_pitching;
+	PRINT '>> Inserting Data Into: silver.lahman_pitching';
 INSERT INTO silver.lahman_pitching (
 	playerID,
 	yearID,
