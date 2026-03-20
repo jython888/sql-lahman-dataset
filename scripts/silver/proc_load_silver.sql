@@ -539,6 +539,30 @@ SET @end_time = GETDATE();
 	PRINT '>> Load Duration: ' + CAST(DATEDIFF(SECOND, @start_time, @end_time) AS NVARCHAR) + ' seconds';
 	PRINT '>> ---------';
 
+-- Loading silver.lahman_parks
+	SET @start_time = GETDATE();
+	PRINT '>> Truncating Table: silver.lahman_parks';
+	TRUNCATE TABLE silver.lahman_parks;
+	PRINT '>> Inserting Data Into: silver.lahman_parks';
+INSERT INTO silver.lahman_parks (
+	parkID,
+	park_name,
+	parkkey,
+	city,
+	state,
+	country)
+SELECT
+	ID AS parkID,
+	COALESCE(NULLIF(TRIM(parkname), ''), NULLIF(TRIM(parkalias), '')) AS park_name,
+	TRIM(parkkey) AS parkkey,
+	TRIM(city) AS city,
+	TRIM(state) AS state,
+	TRIM(country) AS country
+FROM bronze.lahman_parks
+SET @end_time = GETDATE();
+	PRINT '>> Load Duration: ' + CAST(DATEDIFF(SECOND, @start_time, @end_time) AS NVARCHAR) + ' seconds';
+	PRINT '>> ---------';
+
 SET @batch_end_time = GETDATE();
 	PRINT '=============================='
 	PRINT 'Loading Silver Layer is Complete';
@@ -555,6 +579,3 @@ BEGIN CATCH
 	PRINT '=============================='
 END CATCH 
 END
-
-
-
