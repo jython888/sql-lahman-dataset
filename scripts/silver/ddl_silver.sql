@@ -248,3 +248,16 @@ CREATE TABLE silver.lahman_salaries (
 	salary BIGINT,
 	salary_m DECIMAL(10,2)
 );
+GO
+
+IF OBJECT_ID('silver.lahman_parks', 'U') IS NOT NULL
+	DROP TABLE silver.lahman_parks;
+GO
+CREATE TABLE silver.lahman_parks (
+	parkID NVARCHAR(50) PRIMARY KEY,
+	park_name NVARCHAR(100),
+	parkkey NVARCHAR(50),
+	city NVARCHAR(50),
+	state NVARCHAR(50),
+	country NVARCHAR(50)
+); 
